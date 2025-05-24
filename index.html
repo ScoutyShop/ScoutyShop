@@ -46,8 +46,6 @@
           <p class="text-gray-700 mb-4">Cute and popular pet, perfect starter companion.</p>
           <p class="text-green-600 font-bold text-lg">$8 USD</p>
           <div class="product-card">
-  <h3>RedFox_92</h3>
-  <p>$8 USD</p>
   <div id="paypal-button-container-redfox"></div>
 </div>
         </div>
@@ -56,8 +54,6 @@
           <p class="text-gray-700 mb-4">Rare flying pet with sparkle effects, limited edition.</p>
           <p class="text-green-600 font-bold text-lg">$17 USD</p>
           <div class="product-card">
-  <h3>DragonFly</h3>
-  <p>$17 USD</p>
   <div id="paypal-button-container-dragonfly"></div>
 </div>
 
@@ -189,8 +185,34 @@
       }
     }).render('#paypal-button-container-redfox');
   </script>
+    <!-- Your HTML content here -->
+
+  <!-- PayPal Buttons script -->
+  <script src="https://www.paypal.com/sdk/js?client-id=YOUR_CLIENT_ID&currency=USD"></script>
+
+  <script>
+    paypal.Buttons({
+      createOrder: function(data, actions) {
+        return actions.order.create({
+          purchase_units: [{
+            description: "dragonfly Pet",
+            amount: {
+              value: '17.00'
+            }
+          }]
+        });
+      },
+      onApprove: function(data, actions) {
+        return actions.order.capture().then(function(details) {
+          alert('Transaction completed by ' + details.payer.name.given_name + '!');
+          // You can add extra logic here after payment completes
+        });
+      }
+    }).render('#paypal-button-container-dragonfly');
+  </script>
 </body>
 </html>
 
 </body>
 </html>
+
