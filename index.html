@@ -161,13 +161,13 @@
 
 
 <script>
-  <script>
   const chatBox = document.getElementById("chatBox");
   const openChatBtn = document.getElementById("openChatBtn");
   const messagesDiv = document.getElementById("messages");
   const chatInput = document.getElementById("chatInput");
   const sendBtn = document.getElementById("sendBtn");
 
+  // Toggle chat window
   openChatBtn.addEventListener("click", () => {
     chatBox.classList.toggle("hidden");
   });
@@ -199,7 +199,7 @@
     if (e.key === "Enter") sendBtn.click();
   });
 
-  // Order form logic
+  // Order form submit handler
   document.getElementById("usernameForm").addEventListener("submit", function (e) {
     e.preventDefault();
 
@@ -207,22 +207,19 @@
     const paypalUser = document.querySelectorAll("#usernameInput")[1].value;
     const item = document.getElementById("itemBought").value;
 
-    // Send order to Discord
     fetch("https://discord.com/api/webhooks/...", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         content: `📥 New order received:\nUsername: **${username}**\nPayPal: **${paypalUser}**\nItem: **${item}**`
       })
     }).then(response => {
       if (response.ok) {
-        // Auto-reply in chat
+        // Show chat and auto-send message
         chatBox.classList.remove("hidden");
         addMessage("Thanks for your order! Your item will be delivered soon. ✅", "bot");
 
-        // Reset form
+        // Reset form fields
         document.querySelectorAll("#usernameInput")[0].value = "";
         document.querySelectorAll("#usernameInput")[1].value = "";
         document.getElementById("itemBought").value = "";
@@ -231,6 +228,7 @@
       }
     });
   });
+
 </script>
 <!-- Chat Button -->
 <button id="openChatBtn" class="fixed bottom-6 right-6 bg-green-600 text-white p-4 rounded-full shadow-lg hover:bg-green-700 transition z-50">
