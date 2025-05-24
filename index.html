@@ -1,165 +1,115 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>ScoutyShop | Grow a Garden Marketplace</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
-  <style>
-    body {
-      background: #f9fafb;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-    .star {
-      color: #fbbf24; /* amber-400 */
-    }
-  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ScoutyShop - Buy Pets & Accounts</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body class="text-gray-900">
-
-  <header class="bg-white shadow-md sticky top-0 z-50">
-    <div class="max-w-7xl mx-auto flex justify-between items-center p-5">
-      <h1 class="text-3xl font-bold text-green-600 cursor-default">ScoutyShop</h1>
-      <nav class="space-x-6 text-green-700 font-semibold">
-        <a href="#pets" class="hover:text-green-500 transition">Pets</a>
-        <a href="#accounts" class="hover:text-green-500 transition">Accounts</a>
-        <a href="#shekels" class="hover:text-green-500 transition">Sheckles</a>
-        <a href="#reviews" class="hover:text-green-500 transition">Reviews</a>
-      </nav>
-    </div>
-  </header>
-
-  <main class="max-w-7xl mx-auto px-6 py-12">
-
-    <!-- Hero -->
-    <section class="text-center mb-16">
-      <h2 class="text-5xl font-extrabold mb-4 text-green-700">Grow a Garden Marketplace</h2>
-      <p class="text-lg text-gray-700 max-w-2xl mx-auto">Buy and sell pets, accounts, and Shekels safely with manual delivery and trusted service.</p>
-    </section>
+<body class="bg-gray-100">
+  <div class="max-w-5xl mx-auto py-10 px-4">
+    <h1 class="text-4xl font-bold text-center mb-10">ScoutyShop</h1>
 
     <!-- Pets Section -->
-    <section id="pets" class="mb-20">
-      <h3 class="text-3xl font-bold mb-8 border-b-4 border-green-300 inline-block pb-2 text-green-700">Pets</h3>
-      <div class="grid gap-8 md:grid-cols-3">
-        <div class="bg-white rounded-lg shadow p-6 hover:shadow-lg transition">
-          <h4 class="text-xl font-semibold mb-2">RedFox</h4>
-          <p class="text-gray-700 mb-4">Cute and popular pet, perfect starter companion.</p>
-          <p class="text-green-600 font-bold text-lg">$8 USD</p>
-          <div class="product-card">
-  <div id="paypal-button-container-redfox"></div>
-</div>
-        </div>
-        <div class="bg-white rounded-lg shadow p-6 hover:shadow-lg transition">
-          <h4 class="text-xl font-semibold mb-2">DragonFly</h4>
-          <p class="text-gray-700 mb-4">Rare flying pet with sparkle effects, limited edition.</p>
-          <p class="text-green-600 font-bold text-lg">$17 USD</p>
-          <div class="product-card">
-  <div id="paypal-button-container-dragonfly"></div>
-</div>
-
-        </div>
-        <div class="bg-white rounded-lg shadow p-6 hover:shadow-lg transition">
-          <h4 class="text-xl font-semibold mb-2">Raccoon</h4>
-          <p class="text-gray-700 mb-4">Sneaky and adorable, High-tier rare pet.</p>
-          <p class="text-green-600 font-bold text-lg">$19 USD</p>
-          <div class="product-card">
-  <div id="paypal-button-container-raccoon"></div>
+    <h2 class="text-2xl font-semibold mb-4">Pets</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+      <div class="bg-white p-6 rounded-lg shadow">
+        <h3 class="text-xl font-semibold mb-2">RedFox_92</h3>
+        <p class="text-gray-600 mb-2">A popular starter pet. Great value!</p>
+        <p class="text-green-600 font-bold mb-4">$8 USD</p>
+        <div id="paypal-button-container-redfox"></div>
       </div>
-    </section>
+      <div class="bg-white p-6 rounded-lg shadow">
+        <h3 class="text-xl font-semibold mb-2">DragonFly_17</h3>
+        <p class="text-gray-600 mb-2">Rare flying pet. Smooth and fast!</p>
+        <p class="text-green-600 font-bold mb-4">$17 USD</p>
+        <div id="paypal-button-container-dragonfly"></div>
+      </div>
+      <div class="bg-white p-6 rounded-lg shadow">
+        <h3 class="text-xl font-semibold mb-2">Raccoon_19</h3>
+        <p class="text-gray-600 mb-2">Adventurous and playful companion.</p>
+        <p class="text-green-600 font-bold mb-4">$19 USD</p>
+        <div id="paypal-button-container-raccoon"></div>
+      </div>
+    </div>
 
     <!-- Accounts Section -->
-    <section id="accounts" class="mb-20">
-      <h3 class="text-3xl font-bold mb-8 border-b-4 border-green-300 inline-block pb-2 text-green-700">Accounts</h3>
-      <div class="grid gap-8 md:grid-cols-3">
-        <div class="bg-white rounded-lg shadow p-6 hover:shadow-lg transition">
-          <h4 class="text-xl font-semibold mb-2">CandyBlossom Account</h4>
-          <p class="text-gray-700 mb-4">Popular account with CandyBlossom tree.</p>
-          <p class="text-green-600 font-bold text-lg">$25 USD</p>
-          <button class="mt-4 w-full bg-green-600 text-white py-2 rounded hover:bg-green-700 transition">Buy Now</button>
-        </div>
-      </div>
-    </section>
+    <h2 class="text-2xl font-semibold mb-4">Accounts</h2>
+    <div class="bg-white p-6 rounded-lg shadow mb-10">
+      <h3 class="text-xl font-semibold mb-2">CandyBlossom</h3>
+      <p class="text-gray-600 mb-2">Premium account with rare unlocks and items.</p>
+      <p class="text-green-600 font-bold mb-4">$25 USD</p>
+      <div id="paypal-button-container-candy"></div>
+    </div>
 
-    <!-- Shekels Section -->
-    <section id="shekels" class="mb-20">
-      <h3 class="text-3xl font-bold mb-8 border-b-4 border-green-300 inline-block pb-2 text-green-700">Shekels</h3>
-      <div class="grid gap-8 md:grid-cols-3">
-        <div class="bg-white rounded-lg shadow p-6 hover:shadow-lg transition">
-          <h4 class="text-xl font-semibold mb-2">1b Shekels Pack</h4>
-          <p class="text-gray-700 mb-4">Quick boost to your game currency.</p>
-          <p class="text-green-600 font-bold text-lg">$1 USD</p>
-          <button class="mt-4 w-full bg-green-600 text-white py-2 rounded hover:bg-green-700 transition">Buy Now</button>
-        </div>
-        <div class="bg-white rounded-lg shadow p-6 hover:shadow-lg transition">
-          <h4 class="text-xl font-semibold mb-2">5B Shekels Pack</h4>
-          <p class="text-gray-700 mb-4">Best value for regular players.</p>
-          <p class="text-green-600 font-bold text-lg">$5 USD</p>
-          <button class="mt-4 w-full bg-green-600 text-white py-2 rounded hover:bg-green-700 transition">Buy Now</button>
-        </div>
-        <div class="bg-white rounded-lg shadow p-6 hover:shadow-lg transition">
-          <h4 class="text-xl font-semibold mb-2">20 Shekels Pack</h4>
-          <p class="text-gray-700 mb-4">Power up with the largest pack available.</p>
-          <p class="text-green-600 font-bold text-lg">$15 USD</p>
-          <button class="mt-4 w-full bg-green-600 text-white py-2 rounded hover:bg-green-700 transition">Buy Now</button>
-        </div>
-      </div>
-    </section>
+    <!-- Username Collection Form -->
+    <h2 class="text-2xl font-semibold mb-4">Delivery Info</h2>
+    <form class="bg-white p-6 rounded-lg shadow mb-10">
+      <label class="block text-gray-700 mb-2">Your Grow a Garden Username:</label>
+      <input type="text" placeholder="e.g. Player123" class="w-full border border-gray-300 p-2 rounded mb-4">
+      <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Submit</button>
+    </form>
 
     <!-- Reviews Section -->
-    <section id="reviews" class="mb-20 max-w-4xl mx-auto">
-      <h3 class="text-3xl font-bold mb-8 border-b-4 border-green-300 inline-block pb-2 text-green-700 text-center">Customer Reviews</h3>
-      <div class="space-y-8">
-        <!-- Review 1 -->
-        <div class="bg-white p-6 rounded-lg shadow-md">
-          <div class="flex items-center mb-3">
-            <div class="flex text-yellow-400 space-x-1">
-              <span class="star">&#9733;</span>
-              <span class="star">&#9733;</span>
-              <span class="star">&#9733;</span>
-              <span class="star">&#9733;</span>
-              <span class="star">&#9734;</span>
-            </div>
-            <span class="ml-4 font-semibold text-green-700"></span>
-          </div>
-          <p class="text-gray-800 italic">Legit got everything i ordered fast delivery.</p>
-        </div>
-        <!-- Review 2 -->
-        <div class="bg-white p-6 rounded-lg shadow-md">
-          <div class="flex items-center mb-3">
-            <div class="flex text-yellow-400 space-x-1">
-              <span class="star">&#9733;</span>
-              <span class="star">&#9733;</span>
-              <span class="star">&#9733;</span>
-              <span class="star">&#9733;</span>
-              <span class="star">&#9733;</span>
-            </div>
-            <span class="ml-4 font-semibold text-green-700">MayaGamer</span>
-          </div>
-          <p class="text-gray-800 italic"> Delivery was quick and trustworthy.</p>
-        </div>
-        <!-- Review 3 -->
-        <div class="bg-white p-6 rounded-lg shadow-md">
-          <div class="flex items-center mb-3">
-            <div class="flex text-yellow-400 space-x-1">
-              <span class="star">&#9733;</span>
-              <span class="star">&#9733;</span>
-              <span class="star">&#9733;</span>
-              <span class="star">&#9733;</span>
-              <span class="star">&#9734;</span>
-            </div>
-            <span class="ml-4 font-semibold text-green-700">JordanW</span>
-          </div>
-          <p class="text-gray-800 italic">vouch scoutyshop the DragonFly pet is so op, good service!</p>
-        </div>
+    <h2 class="text-2xl font-semibold mb-4">Customer Reviews</h2>
+    <div class="space-y-4">
+      <div class="bg-white p-4 rounded shadow">
+        <p class="text-yellow-500">★★★★★</p>
+        <p class="text-gray-800">Fast and easy delivery. 10/10! – @GardenQueen</p>
       </div>
-    </section>
+      <div class="bg-white p-4 rounded shadow">
+        <p class="text-yellow-500">★★★★★</p>
+        <p class="text-gray-800">Very smooth transaction. Would buy again! – @FoxHunter42</p>
+      </div>
+      <div class="bg-white p-4 rounded shadow">
+        <p class="text-yellow-500">★★★★★</p>
+        <p class="text-gray-800">Instant delivery, great support. – @BlossomFan</p>
+      </div>
+    </div>
+  </div>
 
-  </main>
+  <!-- PayPal SDK -->
+  <script src="https://www.paypal.com/sdk/js?client-id=YOUR_CLIENT_ID&currency=USD"></script>
 
-  <footer class="bg-green-700 text-white py-6 text-center font-semibold">
-    &copy; 2025 ScoutyShop. All rights reserved.
-  </footer>
-<script src="https://www.paypal.com/sdk/js?client-id=AfEYlr0C0i-Ex4kItkgYidpCLWfiEz9SyxfoYJvHLaVNeFlQZYipbw1OUldxZw4ME0AkYx2h_s4BlYr9&currency=USD"></script>
+  <!-- PayPal Buttons -->
+  <script>
+    paypal.Buttons({
+      createOrder: (data, actions) => actions.order.create({
+        purchase_units: [{ description: "RedFox_92", amount: { value: "8.00" } }]
+      }),
+      onApprove: (data, actions) => actions.order.capture().then(details => {
+        alert("Thanks, " + details.payer.name.given_name + "! Your RedFox will be delivered shortly.");
+      })
+    }).render('#paypal-button-container-redfox');
+
+    paypal.Buttons({
+      createOrder: (data, actions) => actions.order.create({
+        purchase_units: [{ description: "DragonFly_17", amount: { value: "17.00" } }]
+      }),
+      onApprove: (data, actions) => actions.order.capture().then(details => {
+        alert("Thanks, " + details.payer.name.given_name + "! Your DragonFly will be delivered shortly.");
+      })
+    }).render('#paypal-button-container-dragonfly');
+
+    paypal.Buttons({
+      createOrder: (data, actions) => actions.order.create({
+        purchase_units: [{ description: "Raccoon_19", amount: { value: "19.00" } }]
+      }),
+      onApprove: (data, actions) => actions.order.capture().then(details => {
+        alert("Thanks, " + details.payer.name.given_name + "! Your Raccoon will be delivered shortly.");
+      })
+    }).render('#paypal-button-container-raccoon');
+
+    paypal.Buttons({
+      createOrder: (data, actions) => actions.order.create({
+        purchase_units: [{ description: "CandyBlossom", amount: { value: "25.00" } }]
+      }),
+      onApprove: (data, actions) => actions.order.capture().then(details => {
+        alert("Thanks, " + details.payer.name.given_name + "! Your CandyBlossom account will be delivered shortly.");
+      })
+    }).render('#paypal-button-container-candy');
+  </script>
 </body>
 </html>
+
 
