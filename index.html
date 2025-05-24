@@ -106,45 +106,49 @@
         alert("Thanks, " + details.payer.name.given_name + "! Your CandyBlossom account will be delivered shortly.");
       })
     }).render('#paypal-button-container-candy');
-  </script>
-  <form id="usernameForm" class="max-w-md mx-auto bg-white p-8 rounded-lg shadow-lg mb-12">
-  <h2 class="text-2xl font-semibold mb-6 text-center text-gray-800">Submit Your Order</h2>
-  
-  <label for="usernameInput" class="block text-gray-700 font-medium mb-2">Your Grow a Garden Username:</label>
-  <input 
-    id="usernameInput" 
-    type="text" 
-    placeholder="e.g. Player123" 
-    required
-    class="w-full border border-gray-300 p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 mb-6"
-  />
-    <label for="usernameInput" class="block text-gray-700 font-medium mb-2">Your PayPal Username:</label>
-  <input 
-    id="PayPalusernameInput" 
-    type="text" 
-    placeholder="e.g. johndoe@gmail.com" 
-    required
-    class="w-full border border-gray-300 p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 mb-6"
-  />
-  
-  <label for="itemBought" class="block text-gray-700 font-medium mb-2">Select Your Item to purchase:</label>
-  <select 
-    id="itemBought" 
-    required
-    class="w-full border border-gray-300 p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 mb-8"
-  >
-    <option value="" disabled selected>Select an item</option>
-    <option value="Red Fox - $8">Red Fox - $8</option>
-    <option value="Dragonfly - $17">Dragonfly - $17</option>
-    <option value="Raccoon - $19">Raccoon - $19</option>
-    <option value="Candy Blossom Account - $25">Candy Blossom Account - $25</option>
-  </select>
-  
-  <button 
-    type="submit" 
-    class="w-full bg-green-600 text-white py-3 rounded-md font-semibold hover:bg-green-700 transition"
-  >
-    Submit Order
+  <script>
+  const webhookURL = "YOUR_DISCORD_WEBHOOK_URL_HERE";
+
+  document.getElementById('usernameForm').addEventListener('submit', async function(event) {
+    event.preventDefault();
+
+    const gardenUsername = document.getElementById('usernameInput').value.trim();
+    const paypalUsername = document.getElementById('PayPalusernameInput').value.trim();
+    const itemBought = document.getElementById('itemBought').value;
+
+    if (!gardenUsername || !paypalUsername || !itemBought) {
+      alert('Please fill out all fields.');
+      return;
+    }
+
+    // Build the message content
+    const message = `
+**New Order Received!**
+- Grow a Garden Username: ${gardenUsername}
+- PayPal Username: ${paypalUsername}
+- Item Bought: ${itemBought}
+`;
+
+    try {
+      const response = await fetch(webhookURL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ content: message })
+      });
+
+      if (response.ok) {
+        alert('Order submitted successfully! We will process your order soon.');
+        this.reset();
+      } else {
+        alert('Failed to send order. Please try again later.');
+        console.error('Discord webhook response:', response.status, response.statusText);
+      }
+    } catch (error) {
+      alert('Error sending order. Please check your connection and try again.');
+      console.error('Fetch error:', error);
+    }
+  });
+</script>
   <a href="https://discord.gg/WBwScjav" target="_blank" rel="noopener noreferrer"
      class="fixed bottom-0 right-0 bg-blue-600 hover:bg-blue-700 text-white p-4 rounded-tl-lg shadow-lg transition z-50 flex items-center justify-center space-x-2">
     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" >
