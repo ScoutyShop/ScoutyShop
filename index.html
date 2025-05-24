@@ -1,107 +1,171 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" >
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>ScoutyShop | Grow a Garden Pets & Accounts</title>
+  <title>ScoutyShop | Grow a Garden Marketplace</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
   <style>
-    /* Custom scrollbar for reviews */
-    .reviews-scroll::-webkit-scrollbar {
-      height: 8px;
+    body {
+      background: #f9fafb;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
-    .reviews-scroll::-webkit-scrollbar-thumb {
-      background-color: #4ade80;
-      border-radius: 4px;
+    .star {
+      color: #fbbf24; /* amber-400 */
     }
   </style>
 </head>
-<body class="bg-white text-gray-900 font-sans">
-  <header class="bg-green-100 shadow p-5">
-    <div class="max-w-7xl mx-auto flex justify-between items-center">
-      <h1 class="text-3xl font-extrabold text-green-700">ScoutyShop</h1>
-      <nav class="space-x-8 text-green-800 font-semibold">
-        <a href="#shop" class="hover:text-green-600 transition">Shop</a>
-        <a href="#how" class="hover:text-green-600 transition">How It Works</a>
-        <a href="#reviews" class="hover:text-green-600 transition">Reviews</a>
-        <a href="#contact" class="hover:text-green-600 transition">Contact</a>
+<body class="text-gray-900">
+
+  <header class="bg-white shadow-md sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto flex justify-between items-center p-5">
+      <h1 class="text-3xl font-bold text-green-600 cursor-default">ScoutyShop</h1>
+      <nav class="space-x-6 text-green-700 font-semibold">
+        <a href="#pets" class="hover:text-green-500 transition">Pets</a>
+        <a href="#accounts" class="hover:text-green-500 transition">Accounts</a>
+        <a href="#shekels" class="hover:text-green-500 transition">Shekels</a>
+        <a href="#reviews" class="hover:text-green-500 transition">Reviews</a>
       </nav>
     </div>
   </header>
 
-  <section class="bg-green-50 py-16 text-center px-6">
-    <h2 class="text-5xl font-extrabold text-green-800 mb-4">Grow a Garden Pets & Accounts</h2>
-    <p class="max-w-xl mx-auto text-lg text-green-700">Buy rare and exclusive pets like <strong>RedFox_92</strong>, <strong>DragonFlyX</strong>, and <strong>RaccoonKing</strong> safely. Manual delivery after purchase ensures you get exactly what you paid for.</p>
-  </section>
+  <main class="max-w-7xl mx-auto px-6 py-12">
 
-  <section id="shop" class="max-w-6xl mx-auto py-12 px-6">
-    <h3 class="text-4xl font-bold mb-8 border-b-4 border-green-300 inline-block pb-2">Shop</h3>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
-      <!-- Product 1 -->
-      <div class="border rounded-xl shadow-lg p-6 hover:shadow-2xl transition">
-        <h4 class="text-2xl font-bold mb-2 text-green-700">RedFox_92</h4>
-        <p class="text-gray-700 mb-4">A cute and popular starter account with a loyal pet companion.</p>
-        <p class="text-xl font-semibold mb-6">$8 USD</p>
-        <button class="bg-green-500 hover:bg-green-600 text-white py-3 px-6 rounded-lg font-semibold w-full">Buy Now</button>
+    <!-- Hero -->
+    <section class="text-center mb-16">
+      <h2 class="text-5xl font-extrabold mb-4 text-green-700">Grow a Garden Marketplace</h2>
+      <p class="text-lg text-gray-700 max-w-2xl mx-auto">Buy and sell pets, accounts, and Shekels safely with manual delivery and trusted service.</p>
+    </section>
+
+    <!-- Pets Section -->
+    <section id="pets" class="mb-20">
+      <h3 class="text-3xl font-bold mb-8 border-b-4 border-green-300 inline-block pb-2 text-green-700">Pets</h3>
+      <div class="grid gap-8 md:grid-cols-3">
+        <div class="bg-white rounded-lg shadow p-6 hover:shadow-lg transition">
+          <h4 class="text-xl font-semibold mb-2">RedFox_92</h4>
+          <p class="text-gray-700 mb-4">Cute and popular pet, perfect starter companion.</p>
+          <p class="text-green-600 font-bold text-lg">$8 USD</p>
+          <button class="mt-4 w-full bg-green-600 text-white py-2 rounded hover:bg-green-700 transition">Buy Now</button>
+        </div>
+        <div class="bg-white rounded-lg shadow p-6 hover:shadow-lg transition">
+          <h4 class="text-xl font-semibold mb-2">DragonFlyX</h4>
+          <p class="text-gray-700 mb-4">Rare flying pet with sparkle effects, limited edition.</p>
+          <p class="text-green-600 font-bold text-lg">$17 USD</p>
+          <button class="mt-4 w-full bg-green-600 text-white py-2 rounded hover:bg-green-700 transition">Buy Now</button>
+        </div>
+        <div class="bg-white rounded-lg shadow p-6 hover:shadow-lg transition">
+          <h4 class="text-xl font-semibold mb-2">RaccoonKing</h4>
+          <p class="text-gray-700 mb-4">Sneaky and adorable, mid-tier rarity pet.</p>
+          <p class="text-green-600 font-bold text-lg">$19 USD</p>
+          <button class="mt-4 w-full bg-green-600 text-white py-2 rounded hover:bg-green-700 transition">Buy Now</button>
+        </div>
       </div>
+    </section>
 
-      <!-- Product 2 -->
-      <div class="border rounded-xl shadow-lg p-6 hover:shadow-2xl transition">
-        <h4 class="text-2xl font-bold mb-2 text-green-700">DragonFlyX</h4>
-        <p class="text-gray-700 mb-4">Rare flying pet with sparkle effects. Limited edition account.</p>
-        <p class="text-xl font-semibold mb-6">$17 USD</p>
-        <button class="bg-green-500 hover:bg-green-600 text-white py-3 px-6 rounded-lg font-semibold w-full">Buy Now</button>
+    <!-- Accounts Section -->
+    <section id="accounts" class="mb-20">
+      <h3 class="text-3xl font-bold mb-8 border-b-4 border-green-300 inline-block pb-2 text-green-700">Accounts</h3>
+      <div class="grid gap-8 md:grid-cols-3">
+        <div class="bg-white rounded-lg shadow p-6 hover:shadow-lg transition">
+          <h4 class="text-xl font-semibold mb-2">RedFox_92 Account</h4>
+          <p class="text-gray-700 mb-4">Starter account with RedFox_92 pet and progress.</p>
+          <p class="text-green-600 font-bold text-lg">$15 USD</p>
+          <button class="mt-4 w-full bg-green-600 text-white py-2 rounded hover:bg-green-700 transition">Buy Now</button>
+        </div>
+        <div class="bg-white rounded-lg shadow p-6 hover:shadow-lg transition">
+          <h4 class="text-xl font-semibold mb-2">DragonFlyX Account</h4>
+          <p class="text-gray-700 mb-4">Account with DragonFlyX pet, rare items included.</p>
+          <p class="text-green-600 font-bold text-lg">$30 USD</p>
+          <button class="mt-4 w-full bg-green-600 text-white py-2 rounded hover:bg-green-700 transition">Buy Now</button>
+        </div>
+        <div class="bg-white rounded-lg shadow p-6 hover:shadow-lg transition">
+          <h4 class="text-xl font-semibold mb-2">RaccoonKing Account</h4>
+          <p class="text-gray-700 mb-4">Mid-level account with RaccoonKing pet and extras.</p>
+          <p class="text-green-600 font-bold text-lg">$35 USD</p>
+          <button class="mt-4 w-full bg-green-600 text-white py-2 rounded hover:bg-green-700 transition">Buy Now</button>
+        </div>
       </div>
+    </section>
 
-      <!-- Product 3 -->
-      <div class="border rounded-xl shadow-lg p-6 hover:shadow-2xl transition">
-        <h4 class="text-2xl font-bold mb-2 text-green-700">RaccoonKing</h4>
-        <p class="text-gray-700 mb-4">Sneaky and adorable account with mid-tier rarity pets.</p>
-        <p class="text-xl font-semibold mb-6">$19 USD</p>
-        <button class="bg-green-500 hover:bg-green-600 text-white py-3 px-6 rounded-lg font-semibold w-full">Buy Now</button>
+    <!-- Shekels Section -->
+    <section id="shekels" class="mb-20">
+      <h3 class="text-3xl font-bold mb-8 border-b-4 border-green-300 inline-block pb-2 text-green-700">Shekels</h3>
+      <div class="grid gap-8 md:grid-cols-3">
+        <div class="bg-white rounded-lg shadow p-6 hover:shadow-lg transition">
+          <h4 class="text-xl font-semibold mb-2">100 Shekels Pack</h4>
+          <p class="text-gray-700 mb-4">Quick boost to your game currency.</p>
+          <p class="text-green-600 font-bold text-lg">$5 USD</p>
+          <button class="mt-4 w-full bg-green-600 text-white py-2 rounded hover:bg-green-700 transition">Buy Now</button>
+        </div>
+        <div class="bg-white rounded-lg shadow p-6 hover:shadow-lg transition">
+          <h4 class="text-xl font-semibold mb-2">500 Shekels Pack</h4>
+          <p class="text-gray-700 mb-4">Best value for regular players.</p>
+          <p class="text-green-600 font-bold text-lg">$20 USD</p>
+          <button class="mt-4 w-full bg-green-600 text-white py-2 rounded hover:bg-green-700 transition">Buy Now</button>
+        </div>
+        <div class="bg-white rounded-lg shadow p-6 hover:shadow-lg transition">
+          <h4 class="text-xl font-semibold mb-2">1000 Shekels Pack</h4>
+          <p class="text-gray-700 mb-4">Power up with the largest pack available.</p>
+          <p class="text-green-600 font-bold text-lg">$35 USD</p>
+          <button class="mt-4 w-full bg-green-600 text-white py-2 rounded hover:bg-green-700 transition">Buy Now</button>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section id="how" class="bg-green-50 py-12 px-6">
-    <div class="max-w-4xl mx-auto">
-      <h3 class="text-4xl font-bold mb-6 border-b-4 border-green-300 inline-block pb-2">How It Works</h3>
-      <ol class="list-decimal list-inside space-y-3 text-green-700 text-lg leading-relaxed">
-        <li>Choose a pet or account and click the “Buy Now” button.</li>
-        <li>Checkout securely with PayPal or Stripe.</li>
-        <li>After purchase, we’ll contact you via email or Discord to arrange manual delivery.</li>
-      </ol>
-    </div>
-  </section>
+    <!-- Reviews Section -->
+    <section id="reviews" class="mb-20 max-w-4xl mx-auto">
+      <h3 class="text-3xl font-bold mb-8 border-b-4 border-green-300 inline-block pb-2 text-green-700 text-center">Customer Reviews</h3>
+      <div class="space-y-8">
+        <!-- Review 1 -->
+        <div class="bg-white p-6 rounded-lg shadow-md">
+          <div class="flex items-center mb-3">
+            <div class="flex text-yellow-400 space-x-1">
+              <span class="star">&#9733;</span>
+              <span class="star">&#9733;</span>
+              <span class="star">&#9733;</span>
+              <span class="star">&#9733;</span>
+              <span class="star">&#9734;</span>
+            </div>
+            <span class="ml-4 font-semibold text-green-700">PlayerAlex</span>
+          </div>
+          <p class="text-gray-800 italic">Fast and easy delivery! The RedFox_92 pet was exactly as described. Highly recommend ScoutyShop.</p>
+        </div>
+        <!-- Review 2 -->
+        <div class="bg-white p-6 rounded-lg shadow-md">
+          <div class="flex items-center mb-3">
+            <div class="flex text-yellow-400 space-x-1">
+              <span class="star">&#9733;</span>
+              <span class="star">&#9733;</span>
+              <span class="star">&#9733;</span>
+              <span class="star">&#9733;</span>
+              <span class="star">&#9733;</span>
+            </div>
+            <span class="ml-4 font-semibold text-green-700">MayaGamer</span>
+          </div>
+          <p class="text-gray-800 italic">Smooth payment and excellent communication. Delivery was quick and trustworthy.</p>
+        </div>
+        <!-- Review 3 -->
+        <div class="bg-white p-6 rounded-lg shadow-md">
+          <div class="flex items-center mb-3">
+            <div class="flex text-yellow-400 space-x-1">
+              <span class="star">&#9733;</span>
+              <span class="star">&#9733;</span>
+              <span class="star">&#9733;</span>
+              <span class="star">&#9733;</span>
+              <span class="star">&#9734;</span>
+            </div>
+            <span class="ml-4 font-semibold text-green-700">JordanW</span>
+          </div>
+          <p class="text-gray-800 italic">The DragonFlyX account was worth every penny. Very satisfied with ScoutyShop’s service!</p>
+        </div>
+      </div>
+    </section>
 
-  <section id="reviews" class="max-w-5xl mx-auto py-12 px-6">
-    <h3 class="text-4xl font-bold mb-8 border-b-4 border-green-300 inline-block pb-2 text-green-700">Customer Reviews</h3>
-    <div class="flex flex-col md:flex-row gap-8 reviews-scroll overflow-x-auto">
-      <blockquote class="bg-green-100 p-6 rounded-xl shadow-md flex-shrink-0 w-full md:w-1/3">
-        <p class="italic text-gray-800 mb-4">“Fast delivery and great account! The RedFox_92 pet is adorable and exactly as described.”</p>
-        <footer class="font-semibold text-green-700">— PlayerAlex</footer>
-      </blockquote>
-      <blockquote class="bg-green-100 p-6 rounded-xl shadow-md flex-shrink-0 w-full md:w-1/3">
-        <p class="italic text-gray-800 mb-4">“Excellent communication and reliable service. Highly recommend ScoutyShop for Grow a Garden accounts!”</p>
-        <footer class="font-semibold text-green-700">— MayaGamer</footer>
-      </blockquote>
-      <blockquote class="bg-green-100 p-6 rounded-xl shadow-md flex-shrink-0 w-full md:w-1/3">
-        <p class="italic text-gray-800 mb-4">“The DragonFlyX account was worth every penny. Smooth payment and manual delivery as promised.”</p>
-        <footer class="font-semibold text-green-700">— JordanW</footer>
-      </blockquote>
-    </div>
-  </section>
+  </main>
 
-  <section id="contact" class="py-12 px-6 bg-green-50">
-    <div class="max-w-3xl mx-auto text-center">
-      <h3 class="text-4xl font-bold mb-6 border-b-4 border-green-300 inline-block pb-2 text-green-700">Contact Us</h3>
-      <p class="text-green-700 text-lg mb-2">Questions? Reach out on Discord: <strong>yourDiscord#1234</strong></p>
-      <p class="text-green-700 text-lg">Email us at: <strong>youremail@example.com</strong></p>
-    </div>
-  </section>
-
-  <footer class="bg-green-100 text-center py-6 text-green-800 font-semibold text-sm">
+  <footer class="bg-green-700 text-white py-6 text-center font-semibold">
     &copy; 2025 ScoutyShop. All rights reserved.
   </footer>
+
 </body>
 </html>
