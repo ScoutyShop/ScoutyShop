@@ -146,95 +146,9 @@
     class="w-full bg-green-600 text-white py-3 rounded-md font-semibold hover:bg-green-700 transition"
   >
     Submit Order
-  </button>
-</form>
-  <div id="chatBox" style="max-width: 400px; margin: 2rem auto; background: white; padding: 1rem; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
-  <h3 style="text-align:center; margin-bottom: 1rem;">Chat with ScoutyShop Support</h3>
-  <div id="messages" style="height: 200px; overflow-y: auto; border: 1px solid #ccc; padding: 0.5rem; margin-bottom: 1rem; border-radius: 5px; background: #f9f9f9;"></div>
-  <input id="chatInput" type="text" placeholder="Type a message..." style="width: 100%; padding: 0.5rem; border-radius: 5px; border: 1px solid #ccc;" />
-  <button id="sendBtn" style="margin-top: 0.5rem; width: 100%; background-color: #27ae60; color: white; border: none; padding: 0.75rem; border-radius: 5px; cursor: pointer;">Send</button>
-</div>
-
 
 
 <script>
-  const chatBox = document.getElementById("chatBox");
-  const openChatBtn = document.getElementById("openChatBtn");
-  const messagesDiv = document.getElementById("messages");
-  const chatInput = document.getElementById("chatInput");
-  const sendBtn = document.getElementById("sendBtn");
-
-  // Toggle chat window
-  openChatBtn.addEventListener("click", () => {
-    chatBox.classList.toggle("hidden");
-  });
-
-  function addMessage(text, sender) {
-    const message = document.createElement("div");
-    message.textContent = text;
-    message.className = "p-2 mb-1 rounded max-w-[80%]";
-    if (sender === "user") {
-      message.classList.add("bg-green-100", "ml-auto");
-    } else {
-      message.classList.add("bg-gray-200", "mr-auto");
-    }
-    messagesDiv.appendChild(message);
-    messagesDiv.scrollTop = messagesDiv.scrollHeight;
-  }
-
-  sendBtn.addEventListener("click", () => {
-    const text = chatInput.value.trim();
-    if (!text) return;
-    addMessage(text, "user");
-    chatInput.value = "";
-    setTimeout(() => {
-      addMessage("Thanks for reaching out! We'll get back to you shortly.", "bot");
-    }, 500);
-  });
-
-  chatInput.addEventListener("keypress", (e) => {
-    if (e.key === "Enter") sendBtn.click();
-  });
-
-  // Order form submit handler
-  document.getElementById("usernameForm").addEventListener("submit", function (e) {
-    e.preventDefault();
-
-    const username = document.querySelectorAll("#usernameInput")[0].value;
-    const paypalUser = document.querySelectorAll("#usernameInput")[1].value;
-    const item = document.getElementById("itemBought").value;
-
-    fetch("https://discord.com/api/webhooks/...", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        content: `📥 New order received:\nUsername: **${username}**\nPayPal: **${paypalUser}**\nItem: **${item}**`
-      })
-    }).then(response => {
-      if (response.ok) {
-        // Show chat and auto-send message
-        chatBox.classList.remove("hidden");
-        addMessage("Thanks for your order! Your item will be delivered soon. ✅", "bot");
-
-        // Reset form fields
-        document.querySelectorAll("#usernameInput")[0].value = "";
-        document.querySelectorAll("#usernameInput")[1].value = "";
-        document.getElementById("itemBought").value = "";
-      } else {
-        alert("There was a problem sending your order.");
-      }
-    });
-  });
-
-</script>
-<!-- Chat Button -->
-<button id="openChatBtn" class="fixed bottom-6 right-6 bg-green-600 text-white p-4 rounded-full shadow-lg hover:bg-green-700 transition z-50">
-  💬
-</button>
-
-
-
-<!-- Chat Box (initially hidden) -->
 </body>
 </html>
 
