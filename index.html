@@ -159,7 +159,6 @@
   <footer class="bg-green-700 text-white py-6 text-center font-semibold">
     &copy; 2025 ScoutyShop. All rights reserved.
   </footer>
-<script src="https://www.paypal.com/sdk/js?client-id=&currency=USD"></script>
   <!-- Your HTML content here -->
 
   <!-- PayPal Buttons script -->
@@ -170,7 +169,7 @@
       createOrder: function(data, actions) {
         return actions.order.create({
           purchase_units: [{
-            description: "",
+            description: "RedFox_92 Pet",
             amount: {
               value: '8.00'
             }
@@ -184,6 +183,10 @@
         });
       }
     }).render('#paypal-button-container-redfox');
+  </script>
+</body>
+</html>
+
   </script>
     <!-- Your HTML content here -->
 
