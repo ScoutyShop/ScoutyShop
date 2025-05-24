@@ -161,75 +161,90 @@
 
 
 <script>
-  document.getElementById("usernameForm").addEventListener("submit", function(e) {
-  e.preventDefault();
-  const username = document.getElementById("usernameInput").value;
-  const item = document.getElementById("itemBought").value;
+  <script>
+  const chatBox = document.getElementById("chatBox");
+  const openChatBtn = document.getElementById("openChatBtn");
+  const messagesDiv = document.getElementById("messages");
+  const chatInput = document.getElementById("chatInput");
+  const sendBtn = document.getElementById("sendBtn");
 
-  fetch("https://discord.com/api/webhooks/1375715834894487582/vlgDrOVBOlmCkoDIoh3Q2EZm4rn_TklcmqBgwkxKY-svyWgaNgTe7uU1kl6kVxo4oKOE", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      content: `📥 New order received:\nUsername: **${username}**\nItem: **${item}**`
-    })
-  }).then(response => {
-    if (response.ok) {
-      alert("Order details sent successfully! You'll receive your item soon.");
-      document.getElementById("usernameInput").value = "";
-      document.getElementById("itemBought").value = "";
-    } else {
-      alert("There was a problem sending your order.");
-    }
+  openChatBtn.addEventListener("click", () => {
+    chatBox.classList.toggle("hidden");
   });
-});
-  const messagesDiv = document.getElementById('messages');
-const chatInput = document.getElementById('chatInput');
-const sendBtn = document.getElementById('sendBtn');
 
-function addMessage(text, sender) {
-  const message = document.createElement('div');
-  message.textContent = text;
-  message.style.padding = '0.5rem';
-  message.style.marginBottom = '0.3rem';
-  message.style.borderRadius = '5px';
-  message.style.maxWidth = '80%';
-
-  if(sender === 'user') {
-    message.style.backgroundColor = '#dcf8c6';
-    message.style.alignSelf = 'flex-end';
-    message.style.marginLeft = 'auto';
-  } else {
-    message.style.backgroundColor = '#eee';
-    message.style.alignSelf = 'flex-start';
-    message.style.marginRight = 'auto';
+  function addMessage(text, sender) {
+    const message = document.createElement("div");
+    message.textContent = text;
+    message.className = "p-2 mb-1 rounded max-w-[80%]";
+    if (sender === "user") {
+      message.classList.add("bg-green-100", "ml-auto");
+    } else {
+      message.classList.add("bg-gray-200", "mr-auto");
+    }
+    messagesDiv.appendChild(message);
+    messagesDiv.scrollTop = messagesDiv.scrollHeight;
   }
 
-  messagesDiv.appendChild(message);
-  messagesDiv.scrollTop = messagesDiv.scrollHeight;
-}
+  sendBtn.addEventListener("click", () => {
+    const text = chatInput.value.trim();
+    if (!text) return;
+    addMessage(text, "user");
+    chatInput.value = "";
+    setTimeout(() => {
+      addMessage("Thanks for reaching out! We'll get back to you shortly.", "bot");
+    }, 500);
+  });
 
-sendBtn.addEventListener('click', () => {
-  const userText = chatInput.value.trim();
-  if(userText === '') return;
+  chatInput.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") sendBtn.click();
+  });
 
-  addMessage(userText, 'user');
-  chatInput.value = '';
+  // Order form logic
+  document.getElementById("usernameForm").addEventListener("submit", function (e) {
+    e.preventDefault();
 
-  // Simple bot reply (replace with real backend or chat service later)
-  setTimeout(() => {
-    addMessage("Thanks for reaching out! We'll get back to you shortly.", 'bot');
-  }, 1000);
-});
+    const username = document.querySelectorAll("#usernameInput")[0].value;
+    const paypalUser = document.querySelectorAll("#usernameInput")[1].value;
+    const item = document.getElementById("itemBought").value;
 
-chatInput.addEventListener('keypress', e => {
-  if(e.key === 'Enter') {
-    sendBtn.click();
-  }
-});
+    // Send order to Discord
+    fetch("https://discord.com/api/webhooks/...", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        content: `📥 New order received:\nUsername: **${username}**\nPayPal: **${paypalUser}**\nItem: **${item}**`
+      })
+    }).then(response => {
+      if (response.ok) {
+        // Auto-reply in chat
+        chatBox.classList.remove("hidden");
+        addMessage("Thanks for your order! Your item will be delivered soon. ✅", "bot");
+
+        // Reset form
+        document.querySelectorAll("#usernameInput")[0].value = "";
+        document.querySelectorAll("#usernameInput")[1].value = "";
+        document.getElementById("itemBought").value = "";
+      } else {
+        alert("There was a problem sending your order.");
+      }
+    });
+  });
 </script>
-  
+<!-- Chat Button -->
+<button id="openChatBtn" class="fixed bottom-6 right-6 bg-green-600 text-white p-4 rounded-full shadow-lg hover:bg-green-700 transition z-50">
+  💬
+</button>
+
+<!-- Chat Box -->
+<div id="chatBox" class="fixed bottom-20 right-6 w-80 bg-white rounded-lg shadow-xl p-4 hidden flex-col z-50">
+  <h3 class="text-lg font-semibold mb-2 text-center">ScoutyShop Support</h3>
+  <div id="messages" class="h-48 overflow-y-auto bg-gray-50 border border-gray-300 p-2 mb-2 rounded"></div>
+  <input id="chatInput" type="text" placeholder="Type a message..." class="w-full border p-2 rounded mb-2" />
+  <button id="sendBtn" class="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700 transition">Send</button>
+</div>
+
 
 </body>
 </html>
