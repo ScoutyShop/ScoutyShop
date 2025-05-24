@@ -103,7 +103,8 @@
         alert("Thanks, " + details.payer.name.given_name + "! Your CandyBlossom account will be delivered shortly.");
       })
     }).render('#paypal-button-container-candy');
- <form id="usernameForm" class="max-w-md mx-auto bg-white p-8 rounded-lg shadow-lg mb-12">
+  </script>
+  <form id="usernameForm" class="max-w-md mx-auto bg-white p-8 rounded-lg shadow-lg mb-12">
   <h2 class="text-2xl font-semibold mb-6 text-center text-gray-800">Submit Your Order</h2>
   
   <label for="usernameInput" class="block text-gray-700 font-medium mb-2">Your Grow a Garden Username:</label>
@@ -135,7 +136,34 @@
     Submit Order
   </button>
 </form>
+
+
+<script>
+  document.getElementById("usernameForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+  const username = document.getElementById("usernameInput").value;
+  const item = document.getElementById("itemBought").value;
+
+  fetch("https://discord.com/api/webhooks/1375715834894487582/vlgDrOVBOlmCkoDIoh3Q2EZm4rn_TklcmqBgwkxKY-svyWgaNgTe7uU1kl6kVxo4oKOE", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      content: `📥 New order received:\nUsername: **${username}**\nItem: **${item}**`
+    })
+  }).then(response => {
+    if (response.ok) {
+      alert("Order details sent successfully! You'll receive your item soon.");
+      document.getElementById("usernameInput").value = "";
+      document.getElementById("itemBought").value = "";
+    } else {
+      alert("There was a problem sending your order.");
+    }
+  });
+});
+
+
 </body>
 </html>
-
 
