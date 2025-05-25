@@ -2,56 +2,51 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Checkout</title>
-</head>
-<body>
-  <h1>Checkout Page</h1>
-  <p>This is your new checkout page.</p>
-  <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
   <title>Checkout - ScoutyShop</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-image: url('https://screenplaysmag.com/wp-content/uploads/2025/05/image-185.png');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      min-height: 100vh;
+    }
+    /* Optional: overlay for readability */
+    .bg-overlay {
+      background: rgba(255,255,255,0.85);
+      border-radius: 1rem;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+    }
+  </style>
 </head>
-<body class="bg-gradient-to-br from-green-50 to-green-100 min-h-screen flex flex-col">
+<body class="flex flex-col min-h-screen">
 
-  <div class="max-w-lg w-full mx-auto bg-white rounded-xl shadow-lg p-8 mt-16 mb-8 flex flex-col space-y-6">
+  <div class="max-w-lg w-full mx-auto bg-overlay p-8 mt-16 mb-8 flex flex-col space-y-6">
     <div class="flex items-center space-x-3">
       <img src="https://static.vecteezy.com/system/resources/previews/018/930/500/original/discord-logo-png-discord-icon-transparent-png-free-png.png" class="w-10 h-10" alt="ScoutyShop logo">
       <h1 class="text-3xl font-bold text-green-700">Checkout</h1>
     </div>
-    <p class="text-gray-600 text-center">Complete your purchase below. We use Discord for all order communication.</p>
+    <!-- Removed: <p class="text-gray-600 text-center">Complete your purchase below. We use Discord for all order communication.</p> -->
     
     <!-- Order summary -->
-    <div class="bg-green-50 rounded-lg p-4 space-y-2">
+    <div id="order-summary" class="bg-green-50 rounded-lg p-4 space-y-2">
       <h2 class="text-xl font-semibold text-green-800 mb-2">Order Summary</h2>
-      <ul class="list-disc pl-5 text-gray-700">
-        <li>Product 1 (example)</li>
-        <li>Product 2 (example)</li>
-        <!-- Dynamically list products here if you have JS/cart -->
-      </ul>
+      <ul id="cart-list" class="list-disc pl-5 text-gray-700"></ul>
       <div class="flex justify-between font-bold text-green-900 pt-2 border-t mt-2">
         <span>Total</span>
-        <span>$XX.XX</span>
+        <span id="cart-total">$0.00</span>
       </div>
     </div>
     
-    <!-- User details form -->
-    <form class="space-y-4">
-      <label class="block">
-        <span class="text-gray-700 font-medium">Grow a Garden Username</span>
-        <input type="text" class="mt-1 block w-full rounded border-gray-300 shadow-sm p-2" placeholder="Your username" required>
-      </label>
-      <label class="block">
-        <span class="text-gray-700 font-medium">PayPal Username (Email)</span>
-        <input type="email" class="mt-1 block w-full rounded border-gray-300 shadow-sm p-2" placeholder="you@email.com" required>
-      </label>
-      <!-- Add any other input fields you need -->
-      <button type="submit" class="w-full bg-green-600 text-white font-semibold p-3 rounded hover:bg-green-700 transition">Complete Order</button>
-    </form>
-    <div class="text-xs text-gray-400 text-center mt-2">Your payment and order are secure. Need help? <a href="https://discord.gg/WBwScjav" target="_blank" class="text-blue-600 underline">Contact us on Discord</a></div>
+    <!-- PayPal -->
+    <div id="paypal-button-container" class="mt-3"></div>
+    
+    <!-- Success message -->
+    <div id="success-message" class="hidden text-green-700 text-center font-semibold mt-4">Payment successful! Please check Discord for next steps.</div>
+    
+    <div class="text-xs text-gray-400 text-center mt-2">Need help? <a href="https://discord.gg/WBwScjav" target="_blank" class="text-blue-600 underline">Contact us on Discord</a></div>
   </div>
   
   <!-- Discord Button -->
@@ -66,7 +61,50 @@
       />
     </span>
   </a>
-</body>
-</html>
+
+  <!-- PayPal SDK (replace YOUR_PAYPAL_CLIENT_ID with your ID) -->
+  <script src="https://www.paypal.com/sdk/js?client-id=YOUR_PAYPAL_CLIENT_ID&currency=USD"></script>
+  <script>
+    // Load cart from localStorage
+    const cart = JSON.parse(localStorage.getItem("cart") || "[]");
+    const cartList = document.getElementById("cart-list");
+    const cartTotal = document.getElementById("cart-total");
+    
+    let total = 0;
+    cartList.innerHTML = "";
+    cart.forEach(item => {
+      const li = document.createElement("li");
+      li.textContent = `${item.name} - $${item.price.toFixed(2)}`;
+      cartList.appendChild(li);
+      total += item.price;
+    });
+    cartTotal.textContent = `$${total.toFixed(2)}`;
+    
+    // Show PayPal button only if cart is not empty
+    if (cart.length > 0 && total > 0) {
+      paypal.Buttons({
+        style: {
+          color: 'blue',
+          shape: 'pill',
+          label: 'pay'
+        },
+        createOrder: (data, actions) => {
+          return actions.order.create({
+            purchase_units: [{
+              description: cart.map(i => i.name).join(", "),
+              amount: { value: total.toFixed(2) }
+            }]
+          });
+        },
+        onApprove: (data, actions) => actions.order.capture().then(details => {
+          document.getElementById('success-message').classList.remove('hidden');
+          // Optionally, clear cart:
+          // localStorage.removeItem("cart");
+        })
+      }).render('#paypal-button-container');
+    } else {
+      document.getElementById("order-summary").innerHTML = `<div class="text-center text-gray-500">Your cart is empty. <a href="https://scoutyshop.github.io/ScoutyShop/" class="text-blue-600 underline">Go back to shop</a></div>`;
+    }
+  </script>
 </body>
 </html>
