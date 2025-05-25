@@ -59,7 +59,7 @@
       >Add to Cart</button>
     </div>
 
-    <!-- Cart Section -->
+    <!-- Cart Section (place only once!) -->
     <h2 class="text-2xl font-semibold mb-4">Your Cart</h2>
     <div id="cart" class="bg-white p-6 rounded-lg shadow mb-10">
       <ul id="cart-items" class="mb-4"></ul>
@@ -67,7 +67,6 @@
         <span class="font-semibold">Total:</span>
         <span id="cart-total" class="font-bold text-green-700">$0.00</span>
       </div>
-      <!-- Only ONE Checkout Button, with correct link -->
       <a 
         href="https://scoutyshop.github.io/ScoutyShop/checkout"
         class="w-full block bg-blue-600 text-white font-semibold p-3 rounded hover:bg-blue-700 mt-6 transition text-center"
@@ -76,23 +75,6 @@
       >
         Go to Checkout
       </a>
-    </div>
-
-    <!-- Username Collection Form (hidden until after payment) -->
-    <div id="order-details-section" style="display:none;">
-      <h2 class="text-2xl font-semibold mb-4">Complete Your Order</h2>
-      <form id="usernameForm" class="bg-white p-6 rounded-lg shadow max-w-md mx-auto mb-10">
-        <label for="usernameInput" class="block mb-1 font-medium">Grow a Garden Username</label>
-        <input type="text" id="usernameInput" name="usernameInput" class="w-full p-2 mb-4 border rounded" required>
-
-        <label for="PayPalusernameInput" class="block mb-1 font-medium">PayPal Username</label>
-        <input type="text" id="PayPalusernameInput" name="PayPalusernameInput" class="w-full p-2 mb-4 border rounded" required>
-
-        <label for="itemBought" class="block mb-1 font-medium">Items Bought</label>
-        <input type="text" id="itemBought" name="itemBought" class="w-full p-2 mb-4 border rounded bg-gray-100" readonly>
-
-        <button type="submit" class="w-full bg-green-600 text-white p-3 rounded hover:bg-green-700 transition">Submit Order Details</button>
-      </form>
     </div>
 
     <!-- Reviews Section -->
@@ -113,90 +95,63 @@
     </div>
   </div>
 
+  <!-- Cart Logic -->
   <script>
-    // Cart logic
-    let cart = [];
-    function updateCartDisplay() {
-      const cartItems = document.getElementById("cart-items");
-      const cartTotal = document.getElementById("cart-total");
-      const checkoutBtn = document.getElementById("checkout-btn");
-      cartItems.innerHTML = "";
-      let total = 0;
-      cart.forEach((item, idx) => {
-        total += item.price;
-        cartItems.innerHTML += `<li class="flex justify-between mb-2">${item.name} <span>$${item.price.toFixed(2)}</span> <button class="text-red-500 ml-2" onclick="removeFromCart(${idx})" title="Remove from cart">&times;</button></li>`;
-      });
-      cartTotal.textContent = `$${total.toFixed(2)}`;
-      // Enable/disable checkout button based on cart content
-      if (cart.length > 0) {
-        checkoutBtn.style.pointerEvents = "auto";
-        checkoutBtn.style.opacity = "1";
-      } else {
-        checkoutBtn.style.pointerEvents = "none";
-        checkoutBtn.style.opacity = "0.6";
-      }
-    }
+  // Load or initialize cart from localStorage
+  let cart = JSON.parse(localStorage.getItem("cart") || "[]");
 
-    function removeFromCart(idx) {
-      cart.splice(idx, 1);
-      updateCartDisplay();
-    }
-
-    document.querySelectorAll('.add-to-cart').forEach(btn => {
-      btn.addEventListener('click', function() {
-        const name = this.getAttribute('data-item');
-        const price = parseFloat(this.getAttribute('data-price'));
-        cart.push({ name, price });
-        updateCartDisplay();
-      });
+  function updateCartDisplay() {
+    const cartItems = document.getElementById("cart-items");
+    const cartTotal = document.getElementById("cart-total");
+    const checkoutBtn = document.getElementById("checkout-btn");
+    cartItems.innerHTML = "";
+    let total = 0;
+    cart.forEach((item, idx) => {
+      total += item.price;
+      cartItems.innerHTML += `<li class="flex justify-between mb-2">${item.name} <span>$${item.price.toFixed(2)}</span> <button class="text-red-500 ml-2" onclick="removeFromCart(${idx})" title="Remove from cart">&times;</button></li>`;
     });
+    cartTotal.textContent = `$${total.toFixed(2)}`;
+    if (cart.length > 0) {
+      checkoutBtn.style.pointerEvents = "auto";
+      checkoutBtn.style.opacity = "1";
+    } else {
+      checkoutBtn.style.pointerEvents = "none";
+      checkoutBtn.style.opacity = "0.6";
+    }
+    // Save cart to localStorage
+    localStorage.setItem("cart", JSON.stringify(cart));
+  }
 
-    // Initial render
+  function removeFromCart(idx) {
+    cart.splice(idx, 1);
     updateCartDisplay();
+  }
 
-    // Username Form Submission Logic
-    document.getElementById('usernameForm').addEventListener('submit', async function(e) {
-      e.preventDefault();
-
-      const growUsername = document.getElementById('usernameInput').value;
-      const paypalUsername = document.getElementById('PayPalusernameInput').value;
-      const itemBought = document.getElementById('itemBought').value;
-
-      const webhookURL = "https://discord.com/api/webhooks/1375715834894487582/vlgDrOVBOlmCkoDIoh3Q2EZm4rn_TklcmqBgwkxKY-svyWgaNgTe7uU1kl6kVxo4oKOE";
-
-      const content = `**New Order Received!**\nGrow a Garden Username: ${growUsername}\nPayPal Username: ${paypalUsername}\nItem(s) Bought: ${itemBought}`;
-
-      try {
-        const response = await fetch(webhookURL, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ content: content }),
-        });
-
-        if (response.ok) {
-          alert("Order details sent to Discord successfully!");
-          this.reset();
-          document.getElementById('order-details-section').style.display = "none";
-        } else {
-          alert("Failed to send order details to Discord.");
-        }
-      } catch (error) {
-        alert("Error sending order details: " + error.message);
-      }
+  // Attach add-to-cart event listeners after DOM is ready
+  document.querySelectorAll('.add-to-cart').forEach(btn => {
+    btn.addEventListener('click', function() {
+      const name = this.getAttribute('data-item');
+      const price = parseFloat(this.getAttribute('data-price'));
+      cart.push({ name, price });
+      updateCartDisplay();
     });
+  });
+
+  // Initial render
+  updateCartDisplay();
   </script>
 
-  <!-- Bottom-right Discord button with click-through overlay image -->
+  <!-- Bottom-right Discord button -->
   <a href="https://discord.gg/WBwScjav" target="_blank" rel="noopener noreferrer"
    class="fixed bottom-6 right-6 z-50">
-  <span class="flex justify-center items-center w-16 h-16 rounded-full shadow-lg bg-[#5865F2] hover:bg-[#4752C4] transition-all duration-200 overflow-hidden">
-    <img 
-      src="https://logowik.com/content/uploads/images/discord-new-20218785.jpg"
-      alt="Discord"
-      class="w-28 h-28 object-contain"
-      style="display:block;"
-    />
-  </span>
-</a>
+    <span class="flex justify-center items-center w-16 h-16 rounded-full shadow-lg bg-[#5865F2] hover:bg-[#4752C4] transition-all duration-200 overflow-hidden">
+      <img 
+        src="https://logowik.com/content/uploads/images/discord-new-20218785.jpg"
+        alt="Discord"
+        class="w-28 h-28 object-contain"
+        style="display:block;"
+      />
+    </span>
+  </a>
 </body>
 </html>
