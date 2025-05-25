@@ -67,7 +67,15 @@
         <span class="font-semibold">Total:</span>
         <span id="cart-total" class="font-bold text-green-700">$0.00</span>
       </div>
-      <div id="paypal-button-container" class="mt-6"></div>
+      <!-- Checkout Button replaces PayPal button -->
+      <a 
+        href="/checkout.html"
+        class="w-full block bg-blue-600 text-white font-semibold p-3 rounded hover:bg-blue-700 mt-6 transition text-center"
+        id="checkout-btn"
+        style="pointer-events: none; opacity: 0.6;"
+      >
+        Go to Checkout
+      </a>
     </div>
 
     <!-- Username Collection Form (hidden until after payment) -->
@@ -105,29 +113,7 @@
     </div>
   </div>
 
-  <!-- PayPal SDK -->
-  <script src="https://www.paypal.com/sdk/js?client-id=AdxCp9E9DQF_ZFTjSRQZ2jHU2RYwAy2Yc_qjbqajkXCfk9D4vgJPIBz7VYACyO2JLhIn67fqNci5742z&currency=USD"></script>
-
-  <!-- Cart Section -->
-<h2 class="text-2xl font-semibold mb-4">Your Cart</h2>
-<div id="cart" class="bg-white p-6 rounded-lg shadow mb-10">
-  <ul id="cart-items" class="mb-4"></ul>
-  <div class="flex justify-between items-center">
-    <span class="font-semibold">Total:</span>
-    <span id="cart-total" class="font-bold text-green-700">$0.00</span>
-  </div>
-  <!-- Checkout Button replaces PayPal button -->
-  <a 
-    href="/checkout.html"
-    class="w-full block bg-blue-600 text-white font-semibold p-3 rounded hover:bg-blue-700 mt-6 transition text-center"
-    id="checkout-btn"
-    style="pointer-events: none; opacity: 0.6;"
-  >
-    Go to Checkout
-  </a>
-</div>
-
-<script>
+  <script>
     // Cart logic
     let cart = [];
     function updateCartDisplay() {
@@ -167,7 +153,6 @@
 
     // Initial render
     updateCartDisplay();
-</script>
 
     // Username Form Submission Logic
     document.getElementById('usernameForm').addEventListener('submit', async function(e) {
@@ -200,18 +185,18 @@
       }
     });
   </script>
-<!-- Bottom-right Discord button with click-through overlay image -->
 
-<a href="https://discord.gg/WBwScjav" target="_blank" rel="noopener noreferrer"
-   class="fixed bottom-6 right-6 z-50">
-  <span class="flex justify-center items-center w-24 h-24 rounded-full shadow-lg bg-[#5865F2] hover:bg-[#4752C4] transition-all duration-200 overflow-hidden">
-    <img 
-      src="https://static.vecteezy.com/system/resources/previews/018/930/500/original/discord-logo-png-discord-icon-transparent-png-free-png.png"
-      alt="Discord"
-      class="w-20 h-20 object-contain"
-      style="display:block;"
-    />
-  </span>
-</a>
+  <!-- Bottom-right Discord button with click-through overlay image -->
+  <a href="https://discord.gg/WBwScjav" target="_blank" rel="noopener noreferrer"
+     class="fixed bottom-6 right-6 z-50">
+    <span class="flex justify-center items-center w-24 h-24 rounded-full shadow-lg bg-[#5865F2] hover:bg-[#4752C4] transition-all duration-200 overflow-hidden">
+      <img 
+        src="https://static.vecteezy.com/system/resources/previews/018/930/500/original/discord-logo-png-discord-icon-transparent-png-free-png.png"
+        alt="Discord"
+        class="w-20 h-20 object-contain"
+        style="display:block;"
+      />
+    </span>
+  </a>
 </body>
 </html>
