@@ -11,13 +11,33 @@
   <div class="max-w-md w-full mx-auto bg-white p-8 rounded-xl shadow-lg flex flex-col items-center space-y-6">
     <img src="https://static.vecteezy.com/system/resources/previews/018/930/500/original/discord-logo-png-discord-icon-transparent-png-free-png.png" class="w-16 h-16" alt="ScoutyShop logo">
     <h1 class="text-2xl font-bold text-green-700 text-center">Thank you for your purchase!</h1>
-    <p class="text-center text-gray-700">To receive your order, please enter your roblox username below. you will recieve a friend request from @289000p please accept</p>
+    <p class="text-center text-gray-700">To receive your order, please enter your roblox username below. We will contact you shortly.</p>
     <form id="details-form" class="w-full flex flex-col space-y-4">
-      <input required type="text" id="discord-username" name="discord-username" placeholder="Your roblox Username (e.g. User1234)" class="p-3 border rounded w-full">
+      <input required type="text" id="discord-username" name="discord-username" placeholder="Your Discord Username (e.g. User#1234)" class="p-3 border rounded w-full">
       <textarea id="order-notes" name="order-notes" placeholder="Extra info (optional)" class="p-3 border rounded w-full"></textarea>
       <button type="submit" class="bg-green-600 text-white font-semibold p-3 rounded hover:bg-green-700 transition">Submit Details</button>
     </form>
-    <div id="confirmation" class="hidden text-green-700 text-center font-semibold">Thank you! Your details have been sent.<br>Check your Discord for updates soon.</div>
+    <div id="confirmation" class="hidden text-green-700 text-center font-semibold">
+      Thank you! Your details have been sent.<br>Check your Discord for updates soon.
+      <!-- Review Section will appear here -->
+      <div class="mt-8">
+        <h2 class="text-xl font-bold text-gray-800 mb-2">Leave a Review</h2>
+        <form id="review-form" class="flex flex-col space-y-2">
+          <select id="review-rating" required class="border rounded p-2">
+            <option value="">Rating</option>
+            <option value="5">★★★★★ - Excellent</option>
+            <option value="4">★★★★☆ - Good</option>
+            <option value="3">★★★☆☆ - Okay</option>
+            <option value="2">★★☆☆☆ - Bad</option>
+            <option value="1">★☆☆☆☆ - Terrible</option>
+          </select>
+          <textarea id="review-text" required placeholder="Write your review..." class="border rounded p-2"></textarea>
+          <button type="submit" class="bg-blue-600 text-white p-2 rounded hover:bg-blue-700">Submit Review</button>
+        </form>
+        <div id="review-success" class="hidden text-green-600 text-center mt-2">Thank you for your review!</div>
+        <div id="reviews-list" class="mt-6 space-y-4"></div>
+      </div>
+    </div>
   </div>
 
   <script>
@@ -44,6 +64,51 @@
 
       document.getElementById("details-form").classList.add("hidden");
       document.getElementById("confirmation").classList.remove("hidden");
+    });
+
+    // --- Review Section Logic ---
+    function renderReviews() {
+      const reviews = JSON.parse(localStorage.getItem("scoutyshop-reviews") || "[]");
+      const list = document.getElementById("reviews-list");
+      if (!list) return;
+      list.innerHTML = reviews.length === 0 
+        ? '<div class="text-gray-500 text-sm">No reviews yet. Be the first to leave one!</div>'
+        : reviews.map(r => `
+            <div class="bg-green-50 rounded-lg p-3 shadow">
+              <div class="text-yellow-500 mb-1">${"★".repeat(r.rating)}${"☆".repeat(5 - r.rating)}</div>
+              <div class="text-gray-800">${r.text}</div>
+              <div class="text-xs text-gray-400 mt-1">${r.date}</div>
+            </div>
+          `).join('');
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+      renderReviews();
+    });
+
+    // Show reviews after confirmation (when review section is visible)
+    document.getElementById("confirmation").addEventListener("transitionend", renderReviews);
+
+    // Handle review submission
+    document.addEventListener("submit", function(e) {
+      if (e.target.id === "review-form") {
+        e.preventDefault();
+        const rating = parseInt(document.getElementById("review-rating").value, 10);
+        const text = document.getElementById("review-text").value.trim();
+        const reviews = JSON.parse(localStorage.getItem("scoutyshop-reviews") || "[]");
+        reviews.unshift({
+          rating: rating,
+          text: text,
+          date: new Date().toLocaleString()
+        });
+        localStorage.setItem("scoutyshop-reviews", JSON.stringify(reviews));
+        document.getElementById("review-form").reset();
+        document.getElementById("review-success").classList.remove("hidden");
+        renderReviews();
+        setTimeout(() => {
+          document.getElementById("review-success").classList.add("hidden");
+        }, 2500);
+      }
     });
   </script>
 </body>
