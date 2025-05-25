@@ -57,7 +57,7 @@
   </a>
 
   <!-- PayPal SDK (replace YOUR_PAYPAL_CLIENT_ID with your real ID) -->
-  <script src="https://www.paypal.com/sdk/js?client-id=AdxCp9E9DQF_ZFTjSRQZ2jHU2RYwAy2Yc_qjbqajkXCfk9D4vgJPIBz7VYACyO2JLhIn67fqNci5742z&currency=USD"></script>
+  <script src="https://www.paypal.com/sdk/js?client-id=YOUR_PAYPAL_CLIENT_ID&currency=USD"></script>
   <script>
     // Load cart from localStorage
     const cart = JSON.parse(localStorage.getItem("cart") || "[]");
@@ -97,7 +97,7 @@
         })
       }).render('#paypal-button-container');
     } else {
-      document.getElementById("order-summary").innerHTML = `<div class="text-center text-gray-500">Your cart is empty. <a href="https://scoutyshop.github.io/ScoutyShop/" class="text-blue-600 underline">Go back to shop</a></div>`;
+      document.getElementById("order-summary").innerHTML = `<div class="text-center text-gray-500">Your cart is empty. <a href="index.html" class="text-blue-600 underline">Go back to shop</a></div>`;
     }
   </script>
 </body>
