@@ -7,5 +7,66 @@
 <body>
   <h1>Checkout Page</h1>
   <p>This is your new checkout page.</p>
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Checkout - ScoutyShop</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gradient-to-br from-green-50 to-green-100 min-h-screen flex flex-col">
+
+  <div class="max-w-lg w-full mx-auto bg-white rounded-xl shadow-lg p-8 mt-16 mb-8 flex flex-col space-y-6">
+    <div class="flex items-center space-x-3">
+      <img src="https://static.vecteezy.com/system/resources/previews/018/930/500/original/discord-logo-png-discord-icon-transparent-png-free-png.png" class="w-10 h-10" alt="ScoutyShop logo">
+      <h1 class="text-3xl font-bold text-green-700">Checkout</h1>
+    </div>
+    <p class="text-gray-600 text-center">Complete your purchase below. We use Discord for all order communication.</p>
+    
+    <!-- Order summary -->
+    <div class="bg-green-50 rounded-lg p-4 space-y-2">
+      <h2 class="text-xl font-semibold text-green-800 mb-2">Order Summary</h2>
+      <ul class="list-disc pl-5 text-gray-700">
+        <li>Product 1 (example)</li>
+        <li>Product 2 (example)</li>
+        <!-- Dynamically list products here if you have JS/cart -->
+      </ul>
+      <div class="flex justify-between font-bold text-green-900 pt-2 border-t mt-2">
+        <span>Total</span>
+        <span>$XX.XX</span>
+      </div>
+    </div>
+    
+    <!-- User details form -->
+    <form class="space-y-4">
+      <label class="block">
+        <span class="text-gray-700 font-medium">Grow a Garden Username</span>
+        <input type="text" class="mt-1 block w-full rounded border-gray-300 shadow-sm p-2" placeholder="Your username" required>
+      </label>
+      <label class="block">
+        <span class="text-gray-700 font-medium">PayPal Username (Email)</span>
+        <input type="email" class="mt-1 block w-full rounded border-gray-300 shadow-sm p-2" placeholder="you@email.com" required>
+      </label>
+      <!-- Add any other input fields you need -->
+      <button type="submit" class="w-full bg-green-600 text-white font-semibold p-3 rounded hover:bg-green-700 transition">Complete Order</button>
+    </form>
+    <div class="text-xs text-gray-400 text-center mt-2">Your payment and order are secure. Need help? <a href="https://discord.gg/WBwScjav" target="_blank" class="text-blue-600 underline">Contact us on Discord</a></div>
+  </div>
+  
+  <!-- Discord Button -->
+  <a href="https://discord.gg/WBwScjav" target="_blank" rel="noopener noreferrer"
+     class="fixed bottom-6 right-6 z-50">
+    <span class="flex justify-center items-center w-16 h-16 rounded-full shadow-lg bg-[#5865F2] hover:bg-[#4752C4] transition-all duration-200 overflow-hidden">
+      <img 
+        src="https://static.vecteezy.com/system/resources/previews/018/930/500/original/discord-logo-png-discord-icon-transparent-png-free-png.png"
+        alt="Discord"
+        class="w-12 h-12 object-contain"
+        style="display:block;"
+      />
+    </span>
+  </a>
+</body>
+</html>
 </body>
 </html>
