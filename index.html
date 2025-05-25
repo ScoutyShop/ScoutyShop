@@ -8,45 +8,84 @@
 </head>
 <body class="bg-gradient-to-br from-green-50 to-green-100 min-h-screen">
 
-  <!-- Banner -->
-  
   <div class="max-w-5xl mx-auto py-10 px-4">
     <h1 class="text-4xl font-bold text-center mb-10">ScoutyShop</h1>
 
     <!-- Pets Section -->
-    <h2 class="text-2xl font-semibold mb-4">Pets (IMPORTANT fill out your informations down below once you have made a purchase)</h2>
+    <h2 class="text-2xl font-semibold mb-4">Pets</h2>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-      <div class="bg-white p-6 rounded-lg shadow">
+      <div class="bg-white p-6 rounded-lg shadow flex flex-col">
         <h3 class="text-xl font-semibold mb-2">RedFox</h3>
         <p class="text-gray-600 mb-2">A popular starter pet. Great value!</p>
         <p class="text-green-600 font-bold mb-4">$8 USD</p>
-        <div id="paypal-button-container-redfox"></div>
+        <button
+          class="add-to-cart bg-green-600 text-white p-2 rounded hover:bg-green-700 transition mb-2"
+          data-item="RedFox"
+          data-price="8"
+        >Add to Cart</button>
       </div>
-      <div class="bg-white p-6 rounded-lg shadow">
+      <div class="bg-white p-6 rounded-lg shadow flex flex-col">
         <h3 class="text-xl font-semibold mb-2">DragonFly</h3>
         <p class="text-gray-600 mb-2">Rare flying pet. Smooth and fast!</p>
         <p class="text-green-600 font-bold mb-4">$17 USD</p>
-        <div id="paypal-button-container-dragonfly"></div>
+        <button
+          class="add-to-cart bg-green-600 text-white p-2 rounded hover:bg-green-700 transition mb-2"
+          data-item="DragonFly"
+          data-price="17"
+        >Add to Cart</button>
       </div>
-      <div class="bg-white p-6 rounded-lg shadow">
+      <div class="bg-white p-6 rounded-lg shadow flex flex-col">
         <h3 class="text-xl font-semibold mb-2">Raccoon</h3>
         <p class="text-gray-600 mb-2">Adventurous and playful companion.</p>
         <p class="text-green-600 font-bold mb-4">$19 USD</p>
-        <div id="paypal-button-container-raccoon"></div>
+        <button
+          class="add-to-cart bg-green-600 text-white p-2 rounded hover:bg-green-700 transition mb-2"
+          data-item="Raccoon"
+          data-price="19"
+        >Add to Cart</button>
       </div>
     </div>
 
     <!-- Accounts Section -->
     <h2 class="text-2xl font-semibold mb-4">Accounts</h2>
-    <div class="bg-white p-6 rounded-lg shadow mb-10">
+    <div class="bg-white p-6 rounded-lg shadow mb-10 flex flex-col">
       <h3 class="text-xl font-semibold mb-2">CandyBlossom</h3>
       <p class="text-gray-600 mb-2">Premium account with rare unlocks and items.</p>
       <p class="text-green-600 font-bold mb-4">$25 USD</p>
-      <div id="paypal-button-container-candy"></div>
+      <button
+        class="add-to-cart bg-green-600 text-white p-2 rounded hover:bg-green-700 transition mb-2"
+        data-item="CandyBlossom"
+        data-price="25"
+      >Add to Cart</button>
     </div>
 
-    <!-- Username Collection Form -->
-   
+    <!-- Cart Section -->
+    <h2 class="text-2xl font-semibold mb-4">Your Cart</h2>
+    <div id="cart" class="bg-white p-6 rounded-lg shadow mb-10">
+      <ul id="cart-items" class="mb-4"></ul>
+      <div class="flex justify-between items-center">
+        <span class="font-semibold">Total:</span>
+        <span id="cart-total" class="font-bold text-green-700">$0.00</span>
+      </div>
+      <div id="paypal-button-container" class="mt-6"></div>
+    </div>
+
+    <!-- Username Collection Form (hidden until after payment) -->
+    <div id="order-details-section" style="display:none;">
+      <h2 class="text-2xl font-semibold mb-4">Complete Your Order</h2>
+      <form id="usernameForm" class="bg-white p-6 rounded-lg shadow max-w-md mx-auto mb-10">
+        <label for="usernameInput" class="block mb-1 font-medium">Grow a Garden Username</label>
+        <input type="text" id="usernameInput" name="usernameInput" class="w-full p-2 mb-4 border rounded" required>
+
+        <label for="PayPalusernameInput" class="block mb-1 font-medium">PayPal Username</label>
+        <input type="text" id="PayPalusernameInput" name="PayPalusernameInput" class="w-full p-2 mb-4 border rounded" required>
+
+        <label for="itemBought" class="block mb-1 font-medium">Items Bought</label>
+        <input type="text" id="itemBought" name="itemBought" class="w-full p-2 mb-4 border rounded bg-gray-100" readonly>
+
+        <button type="submit" class="w-full bg-green-600 text-white p-3 rounded hover:bg-green-700 transition">Submit Order Details</button>
+      </form>
+    </div>
 
     <!-- Reviews Section -->
     <h2 class="text-2xl font-semibold mb-4">Customer Reviews</h2>
@@ -69,97 +108,99 @@
   <!-- PayPal SDK -->
   <script src="https://www.paypal.com/sdk/js?client-id=AdxCp9E9DQF_ZFTjSRQZ2jHU2RYwAy2Yc_qjbqajkXCfk9D4vgJPIBz7VYACyO2JLhIn67fqNci5742z&currency=USD"></script>
 
-  <!-- PayPal Buttons -->
   <script>
-    paypal.Buttons({
-      createOrder: (data, actions) => actions.order.create({
-        purchase_units: [{ description: "RedFox_92", amount: { value: "8.00" } }]
-      }),
-      onApprove: (data, actions) => actions.order.capture().then(details => {
-        alert("Thanks, " + details.payer.name.given_name + "! Your RedFox will be delivered shortly.");
-      })
-    }).render('#paypal-button-container-redfox');
-
-    paypal.Buttons({
-      createOrder: (data, actions) => actions.order.create({
-        purchase_units: [{ description: "DragonFly_17", amount: { value: "17.00" } }]
-      }),
-      onApprove: (data, actions) => actions.order.capture().then(details => {
-        alert("Thanks, " + details.payer.name.given_name + "! Your DragonFly will be delivered shortly.");
-      })
-    }).render('#paypal-button-container-dragonfly');
-
-    paypal.Buttons({
-      createOrder: (data, actions) => actions.order.create({
-        purchase_units: [{ description: "Raccoon_19", amount: { value: "19.00" } }]
-      }),
-      onApprove: (data, actions) => actions.order.capture().then(details => {
-        alert("Thanks, " + details.payer.name.given_name + "! Your Raccoon will be delivered shortly.");
-      })
-    }).render('#paypal-button-container-raccoon');
-
-    paypal.Buttons({
-      createOrder: (data, actions) => actions.order.create({
-        purchase_units: [{ description: "CandyBlossom", amount: { value: "25.00" } }]
-      }),
-      onApprove: (data, actions) => actions.order.capture().then(details => {
-        alert("Thanks, " + details.payer.name.given_name + "! Your CandyBlossom account will be delivered shortly.");
-      })
-    }).render('#paypal-button-container-candy');
-  </script>
-  
-  <!-- Username Collection Form -->
-<h2 class="text-2xl font-semibold mb-4">Complete Your Order</h2>
-<form id="usernameForm" class="bg-white p-6 rounded-lg shadow max-w-md mx-auto mb-10">
-  <label for="usernameInput" class="block mb-1 font-medium">Grow a Garden Username</label>
-  <input type="text" id="usernameInput" name="usernameInput" class="w-full p-2 mb-4 border rounded" required>
-
-  <label for="PayPalusernameInput" class="block mb-1 font-medium">PayPal Username</label>
-  <input type="text" id="PayPalusernameInput" name="PayPalusernameInput" class="w-full p-2 mb-4 border rounded" required>
-
-  <label for="itemBought" class="block mb-1 font-medium">Item Bought</label>
-  <select id="itemBought" name="itemBought" class="w-full p-2 mb-4 border rounded" required>
-    <option value="" disabled selected>Select an item</option>
-    <option value="RedFox">RedFox</option>
-    <option value="DragonFly">DragonFly</option>
-    <option value="Raccoon">Raccoon</option>
-    <option value="CandyBlossom">CandyBlossom</option>
-  </select>
-
-  <button type="submit" class="w-full bg-green-600 text-white p-3 rounded hover:bg-green-700 transition">Submit Order Details</button>
-</form>
-  <script>
-  document.getElementById('usernameForm').addEventListener('submit', async function(e) {
-    e.preventDefault();
-
-    const growUsername = document.getElementById('usernameInput').value;
-    const paypalUsername = document.getElementById('PayPalusernameInput').value;
-    const itemBought = document.getElementById('itemBought').value;
-
-    const webhookURL = "https://discord.com/api/webhooks/1375715834894487582/vlgDrOVBOlmCkoDIoh3Q2EZm4rn_TklcmqBgwkxKY-svyWgaNgTe7uU1kl6kVxo4oKOE";
-
-    const content = `**New Order Received!**\nGrow a Garden Username: ${growUsername}\nPayPal Username: ${paypalUsername}\nItem Bought: ${itemBought}`;
-
-    try {
-      const response = await fetch(webhookURL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ content: content }),
+    // Cart logic
+    let cart = [];
+    function updateCartDisplay() {
+      const cartItems = document.getElementById("cart-items");
+      const cartTotal = document.getElementById("cart-total");
+      cartItems.innerHTML = "";
+      let total = 0;
+      cart.forEach((item, idx) => {
+        total += item.price;
+        cartItems.innerHTML += `<li class="flex justify-between mb-2">${item.name} <span>$${item.price.toFixed(2)}</span> <button class="text-red-500 ml-2" onclick="removeFromCart(${idx})">x</button></li>`;
       });
-
-      if (response.ok) {
-        alert("Order details sent to Discord successfully!");
-        this.reset();
-      } else {
-        alert("Failed to send order details to Discord.");
-      }
-    } catch (error) {
-      alert("Error sending order details: " + error.message);
+      cartTotal.textContent = `$${total.toFixed(2)}`;
+      // Show/hide PayPal button
+      if (window.renderPayPalButtons) window.renderPayPalButtons();
     }
-  });
-</script>
 
-  
+    function removeFromCart(idx) {
+      cart.splice(idx, 1);
+      updateCartDisplay();
+    }
+
+    document.querySelectorAll('.add-to-cart').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const name = this.getAttribute('data-item');
+        const price = parseFloat(this.getAttribute('data-price'));
+        cart.push({ name, price });
+        updateCartDisplay();
+      });
+    });
+
+    // PayPal Buttons Render Logic
+    window.renderPayPalButtons = function() {
+      // Remove existing PayPal buttons (if any)
+      const container = document.getElementById("paypal-button-container");
+      container.innerHTML = "";
+      if (cart.length === 0) return;
+
+      paypal.Buttons({
+        createOrder: (data, actions) => {
+          // Combine cart items into purchase_units
+          return actions.order.create({
+            purchase_units: [{
+              description: cart.map(i=>i.name).join(", "),
+              amount: { value: cart.reduce((a, i) => a + i.price, 0).toFixed(2) }
+            }]
+          });
+        },
+        onApprove: (data, actions) => actions.order.capture().then(details => {
+          // Hide cart section, show form
+          document.getElementById('cart').style.display = "none";
+          document.getElementById('order-details-section').style.display = "block";
+          // Fill out purchased items
+          document.getElementById('itemBought').value = cart.map(i=>i.name).join(", ");
+          // Optionally, store the paid amount in a hidden field if needed
+        })
+      }).render('#paypal-button-container');
+    };
+    // Initial render
+    updateCartDisplay();
+
+    // Username Form Submission Logic
+    document.getElementById('usernameForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      const growUsername = document.getElementById('usernameInput').value;
+      const paypalUsername = document.getElementById('PayPalusernameInput').value;
+      const itemBought = document.getElementById('itemBought').value;
+
+      const webhookURL = "https://discord.com/api/webhooks/1375715834894487582/vlgDrOVBOlmCkoDIoh3Q2EZm4rn_TklcmqBgwkxKY-svyWgaNgTe7uU1kl6kVxo4oKOE";
+
+      const content = `**New Order Received!**\nGrow a Garden Username: ${growUsername}\nPayPal Username: ${paypalUsername}\nItem(s) Bought: ${itemBought}`;
+
+      try {
+        const response = await fetch(webhookURL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ content: content }),
+        });
+
+        if (response.ok) {
+          alert("Order details sent to Discord successfully!");
+          this.reset();
+          document.getElementById('order-details-section').style.display = "none";
+        } else {
+          alert("Failed to send order details to Discord.");
+        }
+      } catch (error) {
+        alert("Error sending order details: " + error.message);
+      }
+    });
+  </script>
+
   <a href="https://discord.gg/WBwScjav" target="_blank" rel="noopener noreferrer"
      class="fixed bottom-0 right-0 bg-blue-600 hover:bg-blue-700 text-white p-4 rounded-tl-lg shadow-lg transition z-50 flex items-center justify-center space-x-2">
     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" >
@@ -169,4 +210,3 @@
   </a>
 </body>
 </html>
-
