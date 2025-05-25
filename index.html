@@ -108,12 +108,32 @@
   <!-- PayPal SDK -->
   <script src="https://www.paypal.com/sdk/js?client-id=AdxCp9E9DQF_ZFTjSRQZ2jHU2RYwAy2Yc_qjbqajkXCfk9D4vgJPIBz7VYACyO2JLhIn67fqNci5742z&currency=USD"></script>
 
-  <script>
+  <!-- Cart Section -->
+<h2 class="text-2xl font-semibold mb-4">Your Cart</h2>
+<div id="cart" class="bg-white p-6 rounded-lg shadow mb-10">
+  <ul id="cart-items" class="mb-4"></ul>
+  <div class="flex justify-between items-center">
+    <span class="font-semibold">Total:</span>
+    <span id="cart-total" class="font-bold text-green-700">$0.00</span>
+  </div>
+  <!-- Checkout Button replaces PayPal button -->
+  <a 
+    href="/checkout.html"
+    class="w-full block bg-blue-600 text-white font-semibold p-3 rounded hover:bg-blue-700 mt-6 transition text-center"
+    id="checkout-btn"
+    style="pointer-events: none; opacity: 0.6;"
+  >
+    Go to Checkout
+  </a>
+</div>
+
+<script>
     // Cart logic
     let cart = [];
     function updateCartDisplay() {
       const cartItems = document.getElementById("cart-items");
       const cartTotal = document.getElementById("cart-total");
+      const checkoutBtn = document.getElementById("checkout-btn");
       cartItems.innerHTML = "";
       let total = 0;
       cart.forEach((item, idx) => {
@@ -121,8 +141,14 @@
         cartItems.innerHTML += `<li class="flex justify-between mb-2">${item.name} <span>$${item.price.toFixed(2)}</span> <button class="text-red-500 ml-2" onclick="removeFromCart(${idx})" title="Remove from cart">&times;</button></li>`;
       });
       cartTotal.textContent = `$${total.toFixed(2)}`;
-      // Show/hide PayPal button
-      if (window.renderPayPalButtons) window.renderPayPalButtons();
+      // Enable/disable checkout button based on cart content
+      if (cart.length > 0) {
+        checkoutBtn.style.pointerEvents = "auto";
+        checkoutBtn.style.opacity = "1";
+      } else {
+        checkoutBtn.style.pointerEvents = "none";
+        checkoutBtn.style.opacity = "0.6";
+      }
     }
 
     function removeFromCart(idx) {
@@ -139,39 +165,9 @@
       });
     });
 
-    // PayPal Buttons Render Logic
-    window.renderPayPalButtons = function() {
-      // Remove existing PayPal buttons (if any)
-      const container = document.getElementById("paypal-button-container");
-      container.innerHTML = "";
-      if (cart.length === 0) return;
-
-      paypal.Buttons({
-        style: {
-          color: 'blue',
-          shape: 'pill',
-          label: 'pay'
-        },
-        createOrder: (data, actions) => {
-          // Combine cart items into purchase_units
-          return actions.order.create({
-            purchase_units: [{
-              description: cart.map(i=>i.name).join(", "),
-              amount: { value: cart.reduce((a, i) => a + i.price, 0).toFixed(2) }
-            }]
-          });
-        },
-        onApprove: (data, actions) => actions.order.capture().then(details => {
-          // Hide cart section, show form
-          document.getElementById('cart').style.display = "none";
-          document.getElementById('order-details-section').style.display = "block";
-          // Fill out purchased items
-          document.getElementById('itemBought').value = cart.map(i=>i.name).join(", ");
-        })
-      }).render('#paypal-button-container');
-    };
     // Initial render
     updateCartDisplay();
+</script>
 
     // Username Form Submission Logic
     document.getElementById('usernameForm').addEventListener('submit', async function(e) {
